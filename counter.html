@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>counter</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        .cont{
+            width: 10%;
+            min-height: 250px;
+            max-height: fit-content;
+            border: 10px solid gray;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            box-sizing: border-box;
+        }
+        .cont span{
+            /* border: 1px solid blue; */
+            width: 70%;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            border-radius: 20px;
+            color: rgb(249, 165, 165);
+        }
+        .cont span:nth-child(2){
+            height: 80px;
+            font-size: 45px;
+            line-height: 80px;
+            background-color: rgb(243, 100, 100);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cont">
+        <span onclick="increase()"><i class="fa-solid fa-angle-up fa-2xl"></i></span>
+        <span>1</span>
+        <span onclick="decrease()"><i class="fa-solid fa-angle-down fa-2xl"></i></span>
+    </div>
+    <script>
+        var num=1;
+        var myspan=document.querySelector(".cont span:nth-child(2)");
+        function increase(){
+            num++;
+            if(num>999){
+                num=1;
+            }
+            myspan.innerHTML=num;
+        }
+        function decrease(){
+            num--;
+            if(num<0){
+                num=999;
+            }
+            myspan.innerHTML=num;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        div{
+            width: 50%;
+            height: auto;
+            text-align: center;
+            padding: 10px;
+        }
+        #myinput,button,#myselect{
+            height: 40px;
+            background-color: antiquewhite;
+            border: none;
+            margin: 5px;
+            padding-inline: 2px;
+            font-size: 20px;
+        }
+        button{
+            width: 80px;
+            background-color: rgb(155, 155, 236);
+        }
+        h3{
+            width: 100%;
+            font-size: 28px;
+            margin: 30px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <select id="myselect">
+            <option value="0">Operation</option>
+            <option value="===">===</option>
+            <option value="==">==</option>
+            <option value="!=">!=</option>
+            <option value="<"><</option>
+            <option value=">">></option>
+            <option value="<="><=</option>
+            <option value=">=">>=</option>
+        </select>
+        <input type="text" id="myinput">
+        <button type="button" id="btn_filter">Filter</button>
+        <button type="button" id="btn_display_array">Data</button>
+        <h3></h3>
+        <h3></h3>
+    </div>
+    <script>
+        var heading=document.querySelectorAll("h3");
+        var data=[10,20,30,40,50,60,"mundan"];
+
+        document.getElementById("btn_display_array").addEventListener("click",()=>{
+            heading[1].innerHTML= data.join(",  ");
+        });
+
+        document.getElementById("btn_filter").addEventListener("click",()=>{
+            var operation= document.getElementById("myselect").value;
+            var newData,input=document.getElementById("myinput").value;
+            if(input === ""){
+                heading[0].innerHTML="! invalid input";
+            }
+            else{
+                switch(operation){
+                    case "<" :
+                        newData= data.filter((d)=>{
+                            return d<input;
+                        });
+                        break;
+                    case "<=" :
+                        newData= data.filter((d)=>{
+                            return d<=input;
+                        });
+                        break;
+                    case ">" :
+                        newData= data.filter((d)=>{
+                            return d>input;
+                        });
+                        break;
+                    case ">=" :
+                        newData= data.filter((d)=>{
+                            return d>=input;
+                        });
+                        break;
+                    case "==" :
+                        newData= data.filter((d)=>{
+                            return d==input;
+                        });
+                        break;
+                    case "===" :
+                        newData= data.filter((d)=>{
+                            return d===input;
+                        });
+                        break;
+                    case "!=" :
+                        newData= data.filter((d)=>{
+                            return d!=input;
+                        });
+                        break;
+                    default:
+                        heading[0].innerHTML="! invalid operation";
+                }
+            }
+            heading[0].innerHTML="Filtered Data : "+ newData.join(", ");
+        });
+    </script>
+</body>
+</html>

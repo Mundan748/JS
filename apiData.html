@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        table{
+            width: 90%;
+            min-height: 200px;
+            max-height: fit-content;
+            border-collapse: collapse;
+        }
+        td,th{
+            padding: 5px;
+        }
+        table thead tr,
+        table tfoot tr {
+            font-family: arial;
+            text-transform: capitalize;
+            background-color: rgb(166, 160, 160);
+            color: white;
+        }
+        thead input{
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th colspan="8"><input type="text" placeholder="Search by Id" id="my_search"></th>
+            </tr>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>username</th>
+                <th>email</th>
+                <th>phone</th>
+                <th>address</th>
+                <th>website</th>
+                <th>company</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th colspan="8">@mydata</th>
+            </tr>
+        </tfoot>
+    </table>
+    <div></div>
+    <script>
+        var mainData;
+        var searchBox=document.getElementById("my_search");
+        function callApi(){
+            fetch("https://jsonplaceholder.typicode.com/users").then((d)=>{
+                    return d.json();
+                }).then((e)=>{
+                    mainData=e;
+                    printData(e);
+                });
+        }
+        callApi();
+        searchBox.addEventListener("input",()=>{
+            if(searchBox.value>0){
+                let data = mainData.filter((f)=>{
+                    return f.id>=searchBox.value;
+                });
+                 printData(data);
+            }
+            else
+                printData(mainData);
+        });
+            
+        function  printData(arr){
+            let dataEle=arr.map((a)=>{
+                return `<tr>
+                    <td>${a.id}</td>
+                    <td>${a.name}</td>
+                    <td>${a.username}</td>
+                    <td>${a.email}</td>
+                    <td>${a.phone}</td>
+                    <td>${a.address.street} , ${a.address.suite} ,<br>${a.address.city} , ${a.address.zipcode}</td>
+                    <td>${a.website}</td>
+                    <td>${a.company.name}</td>
+                    </tr>`;
+                });
+            document.querySelector("tbody").innerHTML=dataEle.join("");
+        }
+    </script>
+</body>
+</html>

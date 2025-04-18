@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        .clock-box{
+            margin-block-start: 50px;
+            width: 400px;
+            height: 400px;
+            border: 5px solid black;
+            box-sizing: border-box;
+            border-radius: 50%;
+            background-color: antiquewhite;
+        }
+        .clock-box>section{
+            float: left;
+            font-size: 24px;
+            font-family: arial;
+            position: relative;
+        }
+        .center-of-clock{
+            border: 5px solid red;
+            border-radius: 50%;
+            top: 190px;
+            left: 190px;
+        }
+        .clock-box div{
+            transform-origin: bottom;
+            width: 2px;
+            height: 155px;
+            background-color: red;
+            position: relative;
+            left: -1px; top: -216px;
+            border-top-right-radius: 2px;
+            border-top-left-radius: 2px;
+        }
+        #min{
+            width: 4px;
+            height: 140px;
+            background-color: blue;
+            left: -1px;
+            top: -61px;
+        }
+        #hr{
+            background-color: green;
+            width: 6px;
+            height: 116px;
+            left: -1px;
+            top: 79px;
+        }
+        .hour-1{
+            top: 25px;
+            left: 267px;
+        }
+        .hour-2{
+            top: 89px;
+            left: 323px;
+        }
+        .hour-3{
+            top: 181px;
+            left: 336px;
+        }
+        .hour-4{
+            top: 273px;
+            left: 296px;
+        }
+        .hour-5{
+            top: 339px;
+            left: 216px;
+        }
+        .hour-6{
+            top: 363px;
+            left: 111px;
+        }
+        .hour-7{
+            top: 339px;
+            left: 8px;
+        }
+        .hour-8{
+            top: 273px;
+            left: -72px;
+        }
+        .hour-9{
+            top: 181px;
+            left: -112px;
+        }
+        .hour-10{
+            top: 95px;
+            left: -102px
+        }
+        .hour-11{
+            top: 28px;
+            left: -64px;
+        }
+        .hour-12{
+            top: 3px;
+            left: -1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-box">
+        <section class="center-of-clock"></section>
+        <section class="hour-1">1</section>
+        <section class="hour-2">2</section>
+        <section class="hour-3">3</section>
+        <section class="hour-4">4</section>
+        <section class="hour-5">5</section>
+        <section class="hour-6">6</section>
+        <section class="hour-7">7</section>
+        <section class="hour-8">8</section>
+        <section class="hour-9">9</section>
+        <section class="hour-10">10</section>
+        <section class="hour-11">11</section>
+        <section class="hour-12">12</section>
+        <div id="hr"></div>
+        <div id="min"></div>
+        <div id="sec"></div>
+        <h2></h2>
+    </div>
+</body>
+<script>
+    function mydate() {
+            var jnid = document.querySelectorAll('#sec,#min,#hr,h2');
+            var a = new Date();
+            var h, m, s,p;
+            h = a.getHours();
+            if(h>12){
+                h=h-12;
+                p="PM";
+            }
+            else    p="AM";
+            m = a.getMinutes();
+            s = a.getSeconds();
+            if(h<=9)    h=`0${h}`;
+            if(m<=9)    m=`0${m}`;
+            if(s<=9)    s=`0${s}`;
+            jnid[2].style.transform=`rotate(${s*6}deg)`;
+            jnid[1].style.transform=`rotate(${m*6}deg)`;
+            jnid[0].style.transform=`rotate(${h*30}deg)`;
+            var t=`${h}:${m}:${s}  ${p}`;
+            jnid[3].innerHTML=t;
+        }
+        setInterval("mydate()",1000);
+</script>
+</html>

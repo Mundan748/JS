@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>module</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        body{
+            background-image: url('https://wallpapers.com/images/featured/nature-2ygv7ssy2k0lxlzu.jpg');
+            background-size: cover;
+        }
+        .module{
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+        }
+        .module>section{
+            width: 60%;
+            height: 450px;
+            background-color: #3c4f77;
+            position: fixed;
+            top: 70px; left: 250px;
+            text-align: center;
+        }
+        .module section:last-child{
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            background-color: #6fd649;
+            top: 135px; left: 595px;
+            line-height: 80px;
+            color: white;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+        .module div{
+            width: 38%;
+            background-color: white;
+            height: 248px;
+            border-radius: 10px;
+            margin-top: 110px;
+            padding-block-start: 70px;
+            box-sizing: border-box;
+            font-family: arial;
+            /* line-height: 248px; */
+        }
+        .module h2{
+            margin-block-end: 10px;
+        }
+        .module input{
+            width: 220px;
+            height: 40px;
+            background-color: #6fd649;
+            color: white;
+            position: fixed;
+            top: 370px; left: 525px;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="module">
+        <section>
+            <div>
+                <h2>Thank You!</h2>
+                <p>Your details has been successfully <br>submitted. Thanks!</p>
+                <input type="button" value="OK">
+            </div>
+        </section>
+        <section><h1><i class="fa-solid fa-check fa-2xl"></i></h1></section>
+    </div>
+
+    <script>
+        function callModule(){
+            var mymodule=document.querySelector('.module');
+            var mybtn=document.querySelector('.module input');
+            mymodule.style.display="block";
+            mybtn.addEventListener("click",()=>{
+                mymodule.style.display="none";
+            });
+        }
+        setTimeout("callModule()",3000);
+    </script>
+</body>
+</html>

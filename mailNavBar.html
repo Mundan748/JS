@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        nav{
+            width: 100%;
+            height: 50px;
+            background-color:aquamarine;
+        }
+        ul{
+            list-style-type: none;
+            display: flex;
+            width: 90%;
+        }
+        li{
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+            border: 1px solid red;
+        }
+        #tool_box{
+            width: 351px;
+            height: 450px;
+            padding: 20px 0;
+            border: 3px solid rgb(190, 190, 172);
+            border-radius: 40px;
+            position: fixed;
+            top: 50px;
+            right: 20px;
+            overflow-y: scroll;
+            box-sizing: border-box;
+        }
+        #tool_box>a{
+            padding: 5px;
+            box-sizing: border-box;
+            display: inline-block;
+            margin: 10px;
+            width: 87px;
+            height: 87px;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;
+        }
+        #tool_box>a:hover,#tool:hover{
+            background-color: rgb(245, 239, 232);
+        }
+        #tool_box img{
+            width: 60%;
+            height: 60%;
+            border-radius: 100%;
+        }
+        #tool{
+            padding: 12px;
+            border-radius: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><i class="fa-solid fa-bars"></i></li>
+            <li>home</li>
+            <li>about</li>
+            <li>service</li>
+            <li><i class="fa-solid fa-layer-group" id="tool"></i></li>
+        </ul>
+    </nav>
+    <div id="tool_box" style="visibility: hidden"></div>
+
+
+    <script>
+        document.getElementById("tool").addEventListener("click",()=>{
+            var toolBox=document.getElementById("tool_box");
+            if(toolBox.style.visibility == "hidden")
+                toolBox.style.visibility="visible";
+            else
+                toolBox.style.visibility = "hidden";
+        });
+        
+        var data=[
+            {
+                accountUrl:"https://www.google.co.in/",
+                accountLogo:"https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png",
+                accountName:"Google"
+            },
+            {
+                accountUrl:"https://www.google.com/maps",
+                accountLogo:"https://i.pinimg.com/originals/66/1e/98/661e98a8e38f681575da93d0a1c3f4fc.png",
+                accountName:"Map"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.google.co.in/",
+                accountLogo:"https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png",
+                accountName:"Google"
+            },
+            {
+                accountUrl:"https://www.google.com/maps",
+                accountLogo:"https://i.pinimg.com/originals/66/1e/98/661e98a8e38f681575da93d0a1c3f4fc.png",
+                accountName:"Map"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.google.co.in/",
+                accountLogo:"https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png",
+                accountName:"Google"
+            },
+            {
+                accountUrl:"https://www.google.com/maps",
+                accountLogo:"https://i.pinimg.com/originals/66/1e/98/661e98a8e38f681575da93d0a1c3f4fc.png",
+                accountName:"Map"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.google.co.in/",
+                accountLogo:"https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png",
+                accountName:"Google"
+            },
+            {
+                accountUrl:"https://www.google.com/maps",
+                accountLogo:"https://i.pinimg.com/originals/66/1e/98/661e98a8e38f681575da93d0a1c3f4fc.png",
+                accountName:"Map"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            },
+            {
+                accountUrl:"https://www.youtube.com/",
+                accountLogo:"https://img.freepik.com/premium-vector/youtube-logo-with-red-square_876006-17.jpg",
+                accountName:"Youtube"
+            }
+        ];
+        function pageRelode(){
+            var box=document.getElementById("tool_box");
+            var newData= data.map((d)=>{
+                return  `<a href="${d.accountUrl}" target="_blank">
+                            <img src="${d.accountLogo}" alt="">
+                            <h4>${d.accountName}</h4>
+                        </a>`;
+            });
+            box.innerHTML= newData.join("");
+        }
+        pageRelode();
+    </script>
+</body>
+</html>

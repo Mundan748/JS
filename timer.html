@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" timerent="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        .timer{
+            width: 30%;
+            height: 100px;
+            border: 10px solid rgb(243, 100, 100);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            padding-inline: 20px;
+            box-sizing: border-box;
+        }
+        .timer section{
+            flex: 1;
+            /* border: 1px solid blue; */
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .timer span{
+            /* border: 1px solid red; */
+            width: 80%;
+            flex: 1;
+        }
+        .out{
+            font-size: 28px;
+            /* background-color: rgb(249, 165, 165); */
+        }
+        .timer input{
+            flex:2;
+            height: 40px;
+            color: white;
+            background-color: rgb(127, 127, 249);
+            border: none;
+            font-size: 17px;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer">
+        <section>
+            <span onclick="hourInc()"><i class="fa-solid fa-angle-up"></i></span>
+            <span class="out">00</span>
+            <span onclick="hourDec()"><i class="fa-solid fa-angle-down"></i></span>
+        </section><h1>:</h1>
+        <section>
+            <span onclick="minInc()"><i class="fa-solid fa-angle-up"></i></span>
+            <span class="out">00</span>
+            <span onclick="minDec()"><i class="fa-solid fa-angle-down"></i></span>
+        </section><h1>:</h1>
+        <section>
+            <span onclick="secInc()"><i class="fa-solid fa-angle-up"></i></span>
+            <span class="out">00</span>
+            <span onclick="secDec()"><i class="fa-solid fa-angle-down"></i></span>
+        </section>
+        <input type="button" value="Start Timer" onclick="timerStart()">
+    </div>
+
+    <script>
+        var myspan,c;
+        var num,hr,min,sec;
+        function timerStart(){
+            myspan=document.querySelectorAll('.out');
+            hr=myspan[0].innerHTML;
+            min=myspan[1].innerHTML;
+            sec=myspan[2].innerHTML;
+            c=setInterval("decSec()",1000);
+        }
+        function decSec(){
+            if(hr==0 && min==0 && sec==0){ 
+                alert("invalid time");
+                clearInterval(c);
+                return;
+            }
+            if(sec==0){
+                decMin();
+                sec=60;
+            }
+            sec--;
+            myspan[2].innerHTML=sec;
+            if((hr==0 && min==0) && sec==0){
+                clearInterval(c);
+            }
+        }
+        function decMin(){
+            if(min==0){
+                decHour();
+                min=60;
+            }
+            min--;
+            myspan[1].innerHTML=min;
+        }
+        function decHour(){
+            hr--;
+            myspan[0].innerHTML=hr;
+        }
+
+        // function for set timer
+        function hourInc(){
+            num=myspan[0].innerHTML;
+            increase();
+            if(num>24) num=0; 
+            myspan[0].innerHTML=num;
+        }
+        function hourDec(){
+            num=myspan[0].innerHTML;
+            if(num<1) num=25; 
+            decrease();
+            myspan[0].innerHTML=num;
+        }
+        function minInc(){
+            num=myspan[1].innerHTML;
+            increase();
+            myspan[1].innerHTML=num;
+        }
+        function minDec(){
+            num=myspan[1].innerHTML;
+            decrease();
+            myspan[1].innerHTML=num;
+        }
+        function secInc(){
+            num=myspan[2].innerHTML;
+            increase();
+            myspan[2].innerHTML=num;
+        }
+        function secDec(){
+            num=myspan[2].innerHTML;
+            decrease();
+            myspan[2].innerHTML=num;
+        }
+        function increase(){
+            num++;
+            if(num>59){
+                num=0;
+            }
+        }
+        function decrease(){
+            num--;
+            if(num<0){
+                num=59;
+            }
+        }
+    </script>
+</body>
+</html>

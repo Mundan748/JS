@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        .common{
+            height: 400px;
+            width: 500px;
+            background-color: rgb(210, 250, 237);
+        }
+    </style>
+</head>
+<body>
+   
+    <script>
+        var inp=document.createElement("input");
+        inp.setAttribute("type","button");
+        inp.setAttribute("value","CreateEle");
+        inp.style.width="100px";
+        inp.style.height="40px";
+        document.body.appendChild(inp);
+        inp.addEventListener("click",()=>{
+            dynEle();
+        })
+        function dynEle(){
+        var a= document.createElement("div");
+        a.style.border="1px solid red";
+        a.className="common";
+        a.innerHTML=`<h1>Hellow bro! </h1>
+        <h1>Kya hua</h1>
+        <h1>Bhai</h1>`;
+        document.body.appendChild(a);
+        }
+    </script>
+</body>
+</html>

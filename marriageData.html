@@ -1,0 +1,3155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage & Saradh Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        input,
+        button {
+            width: 100px;
+            background-color: rgb(162, 162, 230);
+            margin-bottom: 10px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        input {
+            width: 300px;
+            background-color: aquamarine;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+        }
+
+        #datasetTitle {
+            color: red;
+            margin-left: 5%;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="datasetTitle">Marriage Data</h2>
+    <button onclick="toggleDataset()">Switch</button>
+    <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterTable()">
+    <table>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">SrNo</th>
+                <th onclick="sortTable(1)">Name</th>
+                <th onclick="sortTable(2)">Village</th>
+                <th onclick="sortTable(3)">Amount</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+    <script>
+        let dataset1 = [
+            {
+                "srNo": 1,
+                "name": "sujit kumar (LIC)",
+                "village": "sugauna",
+                "amount": 501
+            },
+            {
+                "srNo": 2,
+                "name": "sanjay kumar ray",
+                "village": "kharaua",
+                "amount": 201
+            },
+            {
+                "srNo": 3,
+                "name": "ganga ram yadav",
+                "village": "jagat",
+                "amount": 151
+            },
+            {
+                "srNo": 4,
+                "name": "satyanarayan sah",
+                "village": "fuhari",
+                "amount": 201
+            },
+            {
+                "srNo": 5,
+                "name": "nathuni sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 6,
+                "name": "sonu jha",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 7,
+                "name": "budhan yadav",
+                "village": "rampur",
+                "amount": 151
+            },
+            {
+                "srNo": 8,
+                "name": "sahadev prasad sah",
+                "village": "kapileshwar sthan",
+                "amount": 500
+            },
+            {
+                "srNo": 9,
+                "name": "baiju prasad sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 10,
+                "name": "narayan sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 11,
+                "name": "sambhu sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 12,
+                "name": "mithilesh yadav",
+                "village": "jagat",
+                "amount": 151
+            },
+            {
+                "srNo": 13,
+                "name": "raslal yadav",
+                "village": "jagat",
+                "amount": 151
+            },
+            {
+                "srNo": 14,
+                "name": "jitendra safhi",
+                "village": "kakaraul",
+                "amount": 251
+            },
+            {
+                "srNo": 15,
+                "name": "bechan pandit",
+                "village": "kamalpur",
+                "amount": 501
+            },
+            {
+                "srNo": 16,
+                "name": "rajesh sah (gril ducan)",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 17,
+                "name": "bijendra jha panda",
+                "village": "kakaraul",
+                "amount": 251
+            },
+            {
+                "srNo": 18,
+                "name": "om ji panda",
+                "village": "kakaraul",
+                "amount": 251
+            },
+            {
+                "srNo": 19,
+                "name": "natavar jha",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 20,
+                "name": "ram prakash gupta",
+                "village": "ranave",
+                "amount": 201
+            },
+            {
+                "srNo": 21,
+                "name": "ram prakash ram",
+                "village": "kalauni",
+                "amount": 151
+            },
+            {
+                "srNo": 22,
+                "name": "ram vilash yadav",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 23,
+                "name": "babu lal thakur",
+                "village": "jagat",
+                "amount": 251
+            },
+            {
+                "srNo": 24,
+                "name": "kailash sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 25,
+                "name": "raghunath sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 26,
+                "name": "bhogendra bhandari",
+                "village": "kapileshwar sthan",
+                "amount": 201
+            },
+            {
+                "srNo": 27,
+                "name": "devnarayan sah",
+                "village": "kapileshwar sthan",
+                "amount": 201
+            },
+            {
+                "srNo": 28,
+                "name": "rajesh sah (mithai ducan)",
+                "village": "kapileshwar sthan",
+                "amount": 251
+            },
+            {
+                "srNo": 29,
+                "name": "bharat prasad sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 30,
+                "name": "bhagavat yadav",
+                "village": "jagat",
+                "amount": 101
+            },
+            {
+                "srNo": 31,
+                "name": "jagadish yadav",
+                "village": "kharaua",
+                "amount": 551
+            },
+            {
+                "srNo": 32,
+                "name": "rajkumar sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 33,
+                "name": "surendra ray",
+                "village": "kharaua",
+                "amount": 151
+            },
+            {
+                "srNo": 34,
+                "name": "sankar yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 35,
+                "name": "udaychandra yadav",
+                "village": "kamalpur",
+                "amount": 251
+            },
+            {
+                "srNo": 36,
+                "name": "mithilesh kumar",
+                "village": "sugauna",
+                "amount": 251
+            },
+            {
+                "srNo": 37,
+                "name": "ashok sah",
+                "village": "kapileshwar sthan",
+                "amount": 251
+            },
+            {
+                "srNo": 38,
+                "name": "ram vilash yadav",
+                "village": "rampur",
+                "amount": 151
+            },
+            {
+                "srNo": 39,
+                "name": "umakant mishra",
+                "village": "raiyam (kamalpur)",
+                "amount": 501
+            },
+            {
+                "srNo": 40,
+                "name": "tula mishra (kula)",
+                "village": "satalakha",
+                "amount": 511
+            },
+            {
+                "srNo": 41,
+                "name": "mahendra sah (veer)",
+                "village": "kapileshwar sthan",
+                "amount": 111
+            },
+            {
+                "srNo": 42,
+                "name": "matavar yadav",
+                "village": "jagat",
+                "amount": 151
+            },
+            {
+                "srNo": 43,
+                "name": "baldev sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 44,
+                "name": "ashok bhagat",
+                "village": "kakaraul",
+                "amount": 501
+            },
+            {
+                "srNo": 45,
+                "name": "dilip sah",
+                "village": "kapileshwar sthan",
+                "amount": 210
+            },
+            {
+                "srNo": 46,
+                "name": "lalbahadur yadav",
+                "village": "jagat",
+                "amount": 100
+            },
+            {
+                "srNo": 47,
+                "name": "kailash mistri",
+                "village": "sugauna",
+                "amount": 201
+            },
+            {
+                "srNo": 48,
+                "name": "manoj kumar paswan",
+                "village": "kharaua",
+                "amount": 251
+            },
+            {
+                "srNo": 49,
+                "name": "dr. teknath panjiyar (omprakash panjiyar)",
+                "village": "madhubani",
+                "amount": 501
+            },
+            {
+                "srNo": 50,
+                "name": "mahendra prasad yadav",
+                "village": "jagat",
+                "amount": 151
+            },
+            {
+                "srNo": 51,
+                "name": "rambabu yadav",
+                "village": "jagat",
+                "amount": 201
+            },
+            {
+                "srNo": 52,
+                "name": "satrudhan mahato",
+                "village": "fuhari",
+                "amount": 251
+            },
+            {
+                "srNo": 53,
+                "name": "dilip jha",
+                "village": "basauli",
+                "amount": 201
+            },
+            {
+                "srNo": 54,
+                "name": "bablu kumar sah",
+                "village": "rahika",
+                "amount": 251
+            },
+            {
+                "srNo": 55,
+                "name": "mahadev jwelars",
+                "village": "kapileshwar sthan",
+                "amount": 505
+            },
+            {
+                "srNo": 56,
+                "name": "rambilash prasad ",
+                "village": "kharaua",
+                "amount": 151
+            },
+            {
+                "srNo": 57,
+                "name": "chandra kisor mandal (pramukh)",
+                "village": "rahika",
+                "amount": 501
+            },
+            {
+                "srNo": 58,
+                "name": "madhu rai",
+                "village": "rahika",
+                "amount": 201
+            },
+            {
+                "srNo": 59,
+                "name": "sankar prasad",
+                "village": "kapileshwar sthan",
+                "amount": 501
+            },
+            {
+                "srNo": 60,
+                "name": "lakshmi narayan yadav",
+                "village": "nayagano",
+                "amount": 801
+            },
+            {
+                "srNo": 61,
+                "name": "bachanlal yadav",
+                "village": "nayagano",
+                "amount": 351
+            },
+            {
+                "srNo": 62,
+                "name": "ram ashish yadav",
+                "village": "nayagano",
+                "amount": 1111
+            },
+            {
+                "srNo": 63,
+                "name": "lalan jha",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 64,
+                "name": "ravindra kumar (teacher high school)",
+                "village": "kapileshwar sthan",
+                "amount": 501
+            },
+            {
+                "srNo": 65,
+                "name": "md. Mumtaz",
+                "village": "rampur",
+                "amount": 301
+            },
+            {
+                "srNo": 66,
+                "name": "sonu safi (gairaj)",
+                "village": "rahika",
+                "amount": 555
+            },
+            {
+                "srNo": 67,
+                "name": "surendra yadav",
+                "village": "darima",
+                "amount": 1101
+            },
+            {
+                "srNo": 68,
+                "name": "rajeshwar yadav",
+                "village": "simari",
+                "amount": 121
+            },
+            {
+                "srNo": 69,
+                "name": "dilip yadav",
+                "village": "rampur",
+                "amount": 101
+            },
+            {
+                "srNo": 70,
+                "name": "lalit yadav",
+                "village": "kotwali chouk (madhubani)",
+                "amount": 501
+            },
+            {
+                "srNo": 71,
+                "name": "md. Nausad",
+                "village": "rampur",
+                "amount": 51
+            },
+            {
+                "srNo": 72,
+                "name": "akhsay yadav",
+                "village": "darima",
+                "amount": 1101
+            },
+            {
+                "srNo": 73,
+                "name": "jaynarayan (teacher)",
+                "village": "chakala",
+                "amount": 201
+            },
+            {
+                "srNo": 74,
+                "name": "balram sah",
+                "village": "fuhari",
+                "amount": 251
+            },
+            {
+                "srNo": 75,
+                "name": "md. Barik",
+                "village": "sugauna",
+                "amount": 501
+            },
+            {
+                "srNo": 76,
+                "name": "umesh sah",
+                "village": "fuhari",
+                "amount": 201
+            },
+            {
+                "srNo": 77,
+                "name": "vipin kumar sah ",
+                "village": "fuhari",
+                "amount": 151
+            },
+            {
+                "srNo": 78,
+                "name": "mantun yadav",
+                "village": "darahapura chauri",
+                "amount": 2001
+            },
+            {
+                "srNo": 79,
+                "name": "chandan yadav",
+                "village": "darahapura chauri",
+                "amount": 1501
+            },
+            {
+                "srNo": 80,
+                "name": "baul jha",
+                "village": "jagat",
+                "amount": 251
+            },
+            {
+                "srNo": 81,
+                "name": "ram bharosh rai",
+                "village": "kharaua",
+                "amount": 500
+            },
+            {
+                "srNo": 82,
+                "name": "pulkit yadav",
+                "village": "jiwachh chauk (madhubani)",
+                "amount": 1100
+            },
+            {
+                "srNo": 83,
+                "name": "raju yadav",
+                "village": "darahapura chauri",
+                "amount": 551
+            },
+            {
+                "srNo": 84,
+                "name": "md. Wakil",
+                "village": "rampur",
+                "amount": 501
+            },
+            {
+                "srNo": 85,
+                "name": "subhachandra yadav",
+                "village": "bisfi",
+                "amount": 1101
+            },
+            {
+                "srNo": 86,
+                "name": "lal babu yadav",
+                "village": "kamalpur",
+                "amount": 2511
+            },
+            {
+                "srNo": 87,
+                "name": "manoj kumar (kapara dukan)",
+                "village": "kapileshwar sthan",
+                "amount": 501
+            },
+            {
+                "srNo": 88,
+                "name": "sambhu bhagat (pan masala)",
+                "village": "bata chauk (madhubani)",
+                "amount": 251
+            },
+            {
+                "srNo": 89,
+                "name": "pawan ji ",
+                "village": "madhubani",
+                "amount": 501
+            },
+            {
+                "srNo": 90,
+                "name": "aramendra dilar",
+                "village": "jagat",
+                "amount": 1101
+            },
+            {
+                "srNo": 91,
+                "name": "dinesh yadav",
+                "village": "rampur",
+                "amount": 251
+            },
+            {
+                "srNo": 92,
+                "name": "gulab ahmad",
+                "village": "kharaua",
+                "amount": 105
+            },
+            {
+                "srNo": 93,
+                "name": "lalit bhagat",
+                "village": "sonamani",
+                "amount": 251
+            },
+            {
+                "srNo": 94,
+                "name": "indal yadav",
+                "village": "pingi",
+                "amount": 1100
+            },
+            {
+                "srNo": 95,
+                "name": "hitendra yadav",
+                "village": "belauja",
+                "amount": 202
+            },
+            {
+                "srNo": 96,
+                "name": "ramsharan yadav",
+                "village": "sohans",
+                "amount": 101
+            },
+            {
+                "srNo": 97,
+                "name": "vanarashi sah",
+                "village": "kapileshwar sthan",
+                "amount": 111
+            },
+            {
+                "srNo": 98,
+                "name": "narayan jha panda",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 99,
+                "name": "shri ram yadav",
+                "village": "satalakha",
+                "amount": 501
+            },
+            {
+                "srNo": 100,
+                "name": "adhikari yadav",
+                "village": "pandaul",
+                "amount": 2101
+            },
+            {
+                "srNo": 101,
+                "name": "sitaram yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 102,
+                "name": "sambhu yadav",
+                "village": "darima",
+                "amount": 2101
+            },
+            {
+                "srNo": 103,
+                "name": "satyanarayan yadav",
+                "village": "darima",
+                "amount": 1551
+            },
+            {
+                "srNo": 104,
+                "name": "vatti narayan mishra",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 105,
+                "name": "manoj panda",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 106,
+                "name": "bhavan kishor panda",
+                "village": "babhanagari",
+                "amount": 255
+            },
+            {
+                "srNo": 107,
+                "name": "pramod panda",
+                "village": "babhanagari",
+                "amount": 111
+            },
+            {
+                "srNo": 108,
+                "name": "ajit paswan",
+                "village": "katarahi",
+                "amount": 511
+            },
+            {
+                "srNo": 109,
+                "name": "baijnath thakur",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 110,
+                "name": "rajendra yadav",
+                "village": "kamalpur",
+                "amount": 251
+            },
+            {
+                "srNo": 111,
+                "name": "javahar yadav",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 112,
+                "name": "raj kumar yadav",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 113,
+                "name": "lakshmeshwer yadav",
+                "village": "kharaua",
+                "amount": 501
+            },
+            {
+                "srNo": 114,
+                "name": "rambabu yadav",
+                "village": "bisfi",
+                "amount": 1551
+            },
+            {
+                "srNo": 115,
+                "name": "lakshman yadav ",
+                "village": "bisfi",
+                "amount": 1151
+            },
+            {
+                "srNo": 116,
+                "name": "dewan jha",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 117,
+                "name": "sushil yadav",
+                "village": "babhanagari",
+                "amount": 111
+            },
+            {
+                "srNo": 118,
+                "name": "sitaram yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 119,
+                "name": "jamahar yadav",
+                "village": "ijara",
+                "amount": 3151
+            },
+            {
+                "srNo": 120,
+                "name": "mohan jha",
+                "village": "babhanagari",
+                "amount": 351
+            },
+            {
+                "srNo": 121,
+                "name": "ramprit yadav",
+                "village": "darahapura chauri",
+                "amount": 5500
+            },
+            {
+                "srNo": 122,
+                "name": "harinarayan yadav ",
+                "village": "babhanagari",
+                "amount": 2151
+            },
+            {
+                "srNo": 123,
+                "name": "shiv kumar yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 124,
+                "name": "chhotelal yadav",
+                "village": "soharai",
+                "amount": 5100
+            },
+            {
+                "srNo": 125,
+                "name": "bauyelal yadav",
+                "village": "soharai",
+                "amount": 2501
+            },
+            {
+                "srNo": 126,
+                "name": "ramnarayan mandal",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 127,
+                "name": "subodh jha",
+                "village": "babhanagari",
+                "amount": 110
+            },
+            {
+                "srNo": 128,
+                "name": "subodh yadav (dahi - 500)",
+                "village": "sohans",
+                "amount": 1551
+            },
+            {
+                "srNo": 129,
+                "name": "bablu yadav",
+                "village": "rampur",
+                "amount": 2001
+            },
+            {
+                "srNo": 130,
+                "name": "parmeshwar yadav ",
+                "village": "rampur",
+                "amount": 151
+            },
+            {
+                "srNo": 131,
+                "name": "ramjulm yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 132,
+                "name": "murari yadav",
+                "village": "bisfi",
+                "amount": 2551
+            },
+            {
+                "srNo": 133,
+                "name": "binod yadav",
+                "village": "nurchak",
+                "amount": 1011
+            },
+            {
+                "srNo": 134,
+                "name": "prakash yadav",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 135,
+                "name": "mala jha",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 136,
+                "name": "jagadish yadav",
+                "village": "nurchak",
+                "amount": 7701
+            },
+            {
+                "srNo": 137,
+                "name": "dinesh yadav",
+                "village": "sataghara",
+                "amount": 111
+            },
+            {
+                "srNo": 138,
+                "name": "dipu yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 139,
+                "name": "siyasaran yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 140,
+                "name": "janardhan yadav",
+                "village": "kanahauli",
+                "amount": 1551
+            },
+            {
+                "srNo": 141,
+                "name": "manoj yadav",
+                "village": "kharaua",
+                "amount": 1100
+            },
+            {
+                "srNo": 142,
+                "name": "ramprasad yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 143,
+                "name": "santosh yadav",
+                "village": "kamalpur",
+                "amount": 1501
+            },
+            {
+                "srNo": 144,
+                "name": "ranchandra yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 145,
+                "name": "ramdev yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 146,
+                "name": "yugal kishor jha",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 147,
+                "name": "manish mishra",
+                "village": "jagat",
+                "amount": 705
+            },
+            {
+                "srNo": 148,
+                "name": "ramnath yadav",
+                "village": "faradaha itharwa",
+                "amount": 5501
+            },
+            {
+                "srNo": 149,
+                "name": "bisheshwar yadav (banaiya)",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 150,
+                "name": "dilip yadav",
+                "village": "babhanagari",
+                "amount": 1701
+            },
+            {
+                "srNo": 151,
+                "name": "jaykumar yadav",
+                "village": "babhanagari",
+                "amount": 1601
+            },
+            {
+                "srNo": 152,
+                "name": "pulkit yadav",
+                "village": "kamalpur",
+                "amount": 3101
+            },
+            {
+                "srNo": 153,
+                "name": "prabhu nath mishra",
+                "village": "kakaraul",
+                "amount": 251
+            },
+            {
+                "srNo": 154,
+                "name": "rajendra yadav",
+                "village": "babhanagari",
+                "amount": 5151
+            },
+            {
+                "srNo": 155,
+                "name": "ramashish yadav",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 156,
+                "name": "harishchandra yadav",
+                "village": "babhanagari",
+                "amount": 551
+            },
+            {
+                "srNo": 157,
+                "name": "ramswarth yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 158,
+                "name": "bhogendra yadav (chapaua)",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 159,
+                "name": "ravindra yadav (pavitar)",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 160,
+                "name": "chandan yadav",
+                "village": "darima",
+                "amount": 1501
+            },
+            {
+                "srNo": 161,
+                "name": "sadan mandal",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 162,
+                "name": "parsuram mandal",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 163,
+                "name": "ganesh yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 164,
+                "name": "braspati sadai",
+                "village": "kapileshwar sthan",
+                "amount": 105
+            },
+            {
+                "srNo": 165,
+                "name": "shivnarayan yadav",
+                "village": "babhanagari",
+                "amount": 2121
+            },
+            {
+                "srNo": 166,
+                "name": "sahadev yadav",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 167,
+                "name": "nagendra yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 168,
+                "name": "ramjivan mandal",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 169,
+                "name": "basudev mandal",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 170,
+                "name": "nathuni yadav",
+                "village": "sohans",
+                "amount": 1651
+            },
+            {
+                "srNo": 171,
+                "name": "ramwriksh yadav",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 172,
+                "name": "lakhman yadav ",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 173,
+                "name": "ramsagar yadav",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 174,
+                "name": "jhotel yadav",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 175,
+                "name": "kelash mandal",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 176,
+                "name": "brahamdev yadav",
+                "village": "babhanagari",
+                "amount": 3101
+            },
+            {
+                "srNo": 177,
+                "name": "bipin yadav",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 178,
+                "name": "pravin mishra",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 179,
+                "name": "arvind kumar yadav(rogaha)",
+                "village": "babhanagari",
+                "amount": 1051
+            },
+            {
+                "srNo": 180,
+                "name": "rajgir yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 181,
+                "name": "mahavir yadav",
+                "village": "babhanagari",
+                "amount": 3101
+            },
+            {
+                "srNo": 182,
+                "name": "binod yadav",
+                "village": "darahapura chauri",
+                "amount": 2001
+            },
+            {
+                "srNo": 183,
+                "name": "mahendra yadav",
+                "village": "babhanagari",
+                "amount": 2101
+            },
+            {
+                "srNo": 184,
+                "name": "saravan jha",
+                "village": "babhanagari",
+                "amount": 502
+            },
+            {
+                "srNo": 185,
+                "name": "shankar yadav ",
+                "village": "nayagano",
+                "amount": 1001
+            },
+            {
+                "srNo": 186,
+                "name": "lalan yadav",
+                "village": "babhanagari",
+                "amount": 1101
+            },
+            {
+                "srNo": 187,
+                "name": "amarnath jha panda",
+                "village": "babhanagari",
+                "amount": 505
+            },
+            {
+                "srNo": 188,
+                "name": "sadhusaran yadav",
+                "village": "babhanagari",
+                "amount": 300
+            },
+            {
+                "srNo": 189,
+                "name": "ramswarup yadav",
+                "village": "khangaraitha",
+                "amount": 501
+            },
+            {
+                "srNo": 190,
+                "name": "dasharath yadav",
+                "village": "khangaraitha",
+                "amount": 1101
+            },
+            {
+                "srNo": 191,
+                "name": "pan sarkar yadav (bilauki =101)",
+                "village": "khangaraitha",
+                "amount": 5005
+            },
+            {
+                "srNo": 192,
+                "name": "umesh jha",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 193,
+                "name": "mahabir yadav",
+                "village": "darima",
+                "amount": 1101
+            },
+            {
+                "srNo": 194,
+                "name": "bindeshawar jha",
+                "village": "babhanagari",
+                "amount": 210
+            },
+            {
+                "srNo": 195,
+                "name": "bablu yadav",
+                "village": "rampur",
+                "amount": 1500
+            },
+            {
+                "srNo": 196,
+                "name": "dayabati (bilauki = 11)",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 197,
+                "name": "mukesh jha",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 198,
+                "name": "gajendra bhagat",
+                "village": "kakaraul",
+                "amount": 1100
+            },
+            {
+                "srNo": 199,
+                "name": "radhe yadav",
+                "village": "kharaua",
+                "amount": 550
+            },
+            {
+                "srNo": 200,
+                "name": "raj kumar yadav",
+                "village": "babhanagari",
+                "amount": 111
+            },
+            {
+                "srNo": 201,
+                "name": "suresh yadav",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 202,
+                "name": "bisundev yadav",
+                "village": "babhanagari",
+                "amount": 202
+            },
+            {
+                "srNo": 203,
+                "name": "rambilash yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 204,
+                "name": "asesar yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 205,
+                "name": "rambharosh yadav",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 206,
+                "name": "naresh yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 207,
+                "name": "pankaj jha",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 208,
+                "name": "pitambar thakur",
+                "village": "koyalakh",
+                "amount": 501
+            },
+            {
+                "srNo": 209,
+                "name": "mitranath jha panda",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 210,
+                "name": "vikash jha",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 211,
+                "name": "bramhanand jha",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 212,
+                "name": "jaynarayan thakur",
+                "village": "babhanagari",
+                "amount": 551
+            },
+            {
+                "srNo": 213,
+                "name": "satrudhan yadav",
+                "village": "kharaua",
+                "amount": 201
+            },
+            {
+                "srNo": 214,
+                "name": "rajesh yadav ",
+                "village": "bisfi",
+                "amount": 1101
+            },
+            {
+                "srNo": 215,
+                "name": "jay jay ram",
+                "village": "panihara",
+                "amount": 1101
+            },
+            {
+                "srNo": 216,
+                "name": "modh narayan jha",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 217,
+                "name": "fudan jha",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 218,
+                "name": "ramsevak yadav",
+                "village": "babhanagari",
+                "amount": 261
+            },
+            {
+                "srNo": 219,
+                "name": "ramesh kumar",
+                "village": "sugauna",
+                "amount": 501
+            },
+            {
+                "srNo": 220,
+                "name": "lalbabu yadav",
+                "village": "babhanagari",
+                "amount": 200
+            },
+            {
+                "srNo": 221,
+                "name": "guddi kumari",
+                "village": "kharaua",
+                "amount": 500
+            },
+            {
+                "srNo": 222,
+                "name": "bindeshawar yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 223,
+                "name": "kishun purve",
+                "village": "kapileshwar sthan",
+                "amount": 501
+            },
+            {
+                "srNo": 224,
+                "name": "kamaldev yadav",
+                "village": "kharaua",
+                "amount": 501
+            },
+            {
+                "srNo": 225,
+                "name": "devnarayan yadav",
+                "village": "babhanagari",
+                "amount": 101
+            }
+        ];
+
+
+        let dataset2 = [
+            {
+                "srNo": 1,
+                "name": "sambhu yadav",
+                "village": "malangiya",
+                "amount": 2500
+            },
+            {
+                "srNo": 2,
+                "name": "bhushan yadav",
+                "village": "kharaua",
+                "amount": 5100
+            },
+            {
+                "srNo": 3,
+                "name": "mantun yadav",
+                "village": "darahapura chauri",
+                "amount": 3100
+            },
+            {
+                "srNo": 4,
+                "name": "chandan yadav",
+                "village": "darahapura chauri",
+                "amount": 2100
+            },
+            {
+                "srNo": 5,
+                "name": "javahar yadav",
+                "village": "ijara",
+                "amount": 3100
+            },
+            {
+                "srNo": 6,
+                "name": "santosh yadav",
+                "village": "kamalpur",
+                "amount": 1500
+            },
+            {
+                "srNo": 7,
+                "name": "sarso wali didi",
+                "village": "m.p.",
+                "amount": 2000
+            },
+            {
+                "srNo": 8,
+                "name": "ramsagar yadav",
+                "village": "babhanagari",
+                "amount": 551
+            },
+            {
+                "srNo": 9,
+                "name": "lakshmi narayan yadav",
+                "village": "nayagano",
+                "amount": 1101
+            },
+            {
+                "srNo": 10,
+                "name": "sitaram yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 11,
+                "name": "pulkit yadav",
+                "village": "kamalpur",
+                "amount": 1951
+            },
+            {
+                "srNo": 12,
+                "name": "brahamdev yadav",
+                "village": "babhanagari",
+                "amount": 3011
+            },
+            {
+                "srNo": 13,
+                "name": "subhachandra yadav",
+                "village": "bisfi",
+                "amount": 2151
+            },
+            {
+                "srNo": 14,
+                "name": "fekan jha",
+                "village": "babhanagari",
+                "amount": 205
+            },
+            {
+                "srNo": 15,
+                "name": "lalit yadav",
+                "village": "kotwali chouk (madhubani)",
+                "amount": 250
+            },
+            {
+                "srNo": 16,
+                "name": "bisundev yadav",
+                "village": "babhanagari",
+                "amount": 211
+            },
+            {
+                "srNo": 17,
+                "name": "ramjulm yadav",
+                "village": "babhanagari",
+                "amount": 200
+            },
+            {
+                "srNo": 18,
+                "name": "nathuni yadav",
+                "village": "sohans",
+                "amount": 2111
+            },
+            {
+                "srNo": 19,
+                "name": "harishchandra yadav",
+                "village": "babhanagari",
+                "amount": 651
+            },
+            {
+                "srNo": 20,
+                "name": "jay jay ram yadav",
+                "village": "panihara",
+                "amount": 2051
+            },
+            {
+                "srNo": 21,
+                "name": "rajesh yadav ",
+                "village": "bisfi",
+                "amount": 2101
+            },
+            {
+                "srNo": 22,
+                "name": "amarnath jha panda",
+                "village": "babhanagari",
+                "amount": 505
+            },
+            {
+                "srNo": 23,
+                "name": "raj kumar yadav",
+                "village": "babhanagari",
+                "amount": 121
+            },
+            {
+                "srNo": 24,
+                "name": "basudev mandal",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 25,
+                "name": "bauyelal yadav",
+                "village": "soharai",
+                "amount": 2501
+            },
+            {
+                "srNo": 26,
+                "name": "udan mandal",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 27,
+                "name": "sushil yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 28,
+                "name": "ramdev yadav",
+                "village": "babhanagari",
+                "amount": 551
+            },
+            {
+                "srNo": 29,
+                "name": "bisheshwar yadav (banaiya)",
+                "village": "babhanagari",
+                "amount": 102
+            },
+            {
+                "srNo": 30,
+                "name": "janardhan yadav",
+                "village": "kanahauli",
+                "amount": 3151
+            },
+            {
+                "srNo": 31,
+                "name": "jaykumar yadav",
+                "village": "babhanagari",
+                "amount": 2111
+            },
+            {
+                "srNo": 32,
+                "name": "dharamendra yadav (sitaram)",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 33,
+                "name": "suresh yadav",
+                "village": "darima",
+                "amount": 1001
+            },
+            {
+                "srNo": 34,
+                "name": "umesh yadav",
+                "village": "darima",
+                "amount": 1151
+            },
+            {
+                "srNo": 35,
+                "name": "bindan yadav",
+                "village": "darima",
+                "amount": 2501
+            },
+            {
+                "srNo": 36,
+                "name": "chandan yadav",
+                "village": "darima",
+                "amount": 1501
+            },
+            {
+                "srNo": 37,
+                "name": "satyanarayan yadav",
+                "village": "darima",
+                "amount": 2101
+            },
+            {
+                "srNo": 38,
+                "name": "sambhu yadav",
+                "village": "darima",
+                "amount": 2101
+            },
+            {
+                "srNo": 39,
+                "name": "suresh yadav",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 40,
+                "name": "rajgir yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 41,
+                "name": "jhotel yadav",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 42,
+                "name": "bablu yadav",
+                "village": "rampur",
+                "amount": 2001
+            },
+            {
+                "srNo": 43,
+                "name": "binod yadav",
+                "village": "darahapura chauri",
+                "amount": 1101
+            },
+            {
+                "srNo": 44,
+                "name": "prakash yadav",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 45,
+                "name": "kailash mandal",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 46,
+                "name": "sanjay mandal",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 47,
+                "name": "ramjivan mandal",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 48,
+                "name": "dipak mandal",
+                "village": "babhanagari",
+                "amount": 51
+            },
+            {
+                "srNo": 49,
+                "name": "bhagat ji",
+                "village": "pauam",
+                "amount": 502
+            },
+            {
+                "srNo": 50,
+                "name": "dilip yadav",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 51,
+                "name": "rambabu yadav",
+                "village": "bisfi",
+                "amount": 2100
+            },
+            {
+                "srNo": 52,
+                "name": "binod yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 53,
+                "name": "naresh yadav",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 54,
+                "name": "vishwanath yadav",
+                "village": "sohans",
+                "amount": 15151
+            },
+            {
+                "srNo": 55,
+                "name": "nagendra yadav",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 56,
+                "name": "ganga prasad yadav(ex mukhiya)",
+                "village": "sohans",
+                "amount": 501
+            },
+            {
+                "srNo": 57,
+                "name": "devnarayan yadav",
+                "village": "babhanagari",
+                "amount": 111
+            },
+            {
+                "srNo": 58,
+                "name": "ram naresh yadav",
+                "village": "nurchak",
+                "amount": 3101
+            },
+            {
+                "srNo": 59,
+                "name": "jagadish yadav",
+                "village": "mani",
+                "amount": 3105
+            },
+            {
+                "srNo": 60,
+                "name": "nunu thakur",
+                "village": "rahika",
+                "amount": 250
+            },
+            {
+                "srNo": 61,
+                "name": "anand panjiyar",
+                "village": "madhubani",
+                "amount": 250
+            },
+            {
+                "srNo": 62,
+                "name": "omprakash panjiyar",
+                "village": "madhubani",
+                "amount": 500
+            },
+            {
+                "srNo": 63,
+                "name": "shankar sah",
+                "village": "kapileshwar sthan",
+                "amount": 551
+            },
+            {
+                "srNo": 64,
+                "name": "rambharosh yadav",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 65,
+                "name": "dasharath yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 66,
+                "name": "vijay yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 67,
+                "name": "ramprit yadav",
+                "village": "darahapura chauri",
+                "amount": 5005
+            },
+            {
+                "srNo": 68,
+                "name": "amarendra yadav",
+                "village": "jagat",
+                "amount": 1751
+            },
+            {
+                "srNo": 69,
+                "name": "lal bahadur yadav",
+                "village": "pandaul",
+                "amount": 1100
+            },
+            {
+                "srNo": 70,
+                "name": "ramwriksh yadav",
+                "village": "kamalpur",
+                "amount": 2101
+            },
+            {
+                "srNo": 71,
+                "name": "direndra kumar ray",
+                "village": "kharaua",
+                "amount": 1001
+            },
+            {
+                "srNo": 72,
+                "name": "sujit kumar",
+                "village": "sugauna",
+                "amount": 521
+            },
+            {
+                "srNo": 73,
+                "name": "ramashish yadav",
+                "village": "nayagano",
+                "amount": 2101
+            },
+            {
+                "srNo": 74,
+                "name": "lalan yadav",
+                "village": "aura",
+                "amount": 5010
+            },
+            {
+                "srNo": 75,
+                "name": "ranjan yadav",
+                "village": "babhanagari",
+                "amount": 3150
+            },
+            {
+                "srNo": 76,
+                "name": "harinarayan yadav ",
+                "village": "babhanagari",
+                "amount": 2102
+            },
+            {
+                "srNo": 77,
+                "name": "ramwriksh paswan",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 78,
+                "name": "bachchelal yadav",
+                "village": "nayagano",
+                "amount": 351
+            },
+            {
+                "srNo": 79,
+                "name": "sitaram yadav (manoj yadav)",
+                "village": "babhanagari",
+                "amount": 210
+            },
+            {
+                "srNo": 80,
+                "name": "krishan kumar jha",
+                "village": "babhanagari",
+                "amount": 505
+            },
+            {
+                "srNo": 81,
+                "name": "pulkit yadav",
+                "village": "jiwachh chauk (madhubani)",
+                "amount": 1101
+            },
+            {
+                "srNo": 82,
+                "name": "ashok bhagat",
+                "village": "kakaraul",
+                "amount": 501
+            },
+            {
+                "srNo": 83,
+                "name": "jaynarayan sah",
+                "village": "chakala",
+                "amount": 501
+            },
+            {
+                "srNo": 84,
+                "name": "dilip yadav",
+                "village": "rampur",
+                "amount": 210
+            },
+            {
+                "srNo": 85,
+                "name": "shatrudhan mahato",
+                "village": "fuhari",
+                "amount": 501
+            },
+            {
+                "srNo": 86,
+                "name": "ramvilash yadav",
+                "village": "rampur",
+                "amount": 221
+            },
+            {
+                "srNo": 87,
+                "name": "dinesh yadav",
+                "village": "rampur",
+                "amount": 151
+            },
+            {
+                "srNo": 88,
+                "name": "sanjiv ram",
+                "village": "kapileshwar sthan",
+                "amount": 150
+            },
+            {
+                "srNo": 89,
+                "name": "shivnarayan yadav",
+                "village": "babhanagari",
+                "amount": 551
+            },
+            {
+                "srNo": 90,
+                "name": "kapildev ray",
+                "village": "pakharauni",
+                "amount": 1100
+            },
+            {
+                "srNo": 91,
+                "name": "gajendra bhagat",
+                "village": "kakaraul",
+                "amount": 1105
+            },
+            {
+                "srNo": 92,
+                "name": "matavar yadav",
+                "village": "jagat",
+                "amount": 251
+            },
+            {
+                "srNo": 93,
+                "name": "rajkumar yadav",
+                "village": "jagat",
+                "amount": 251
+            },
+            {
+                "srNo": 94,
+                "name": "raslal yadav",
+                "village": "jagat",
+                "amount": 151
+            },
+            {
+                "srNo": 95,
+                "name": "baiju prasad sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 96,
+                "name": "naushad husain",
+                "village": "rampur",
+                "amount": 101
+            },
+            {
+                "srNo": 97,
+                "name": "lakshman sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 98,
+                "name": "surendra yadav",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 99,
+                "name": "gultaj ",
+                "village": "rampur",
+                "amount": 51
+            },
+            {
+                "srNo": 100,
+                "name": "mumtaj",
+                "village": "rampur",
+                "amount": 102
+            },
+            {
+                "srNo": 101,
+                "name": "sahajjad",
+                "village": "rampur",
+                "amount": 102
+            },
+            {
+                "srNo": 102,
+                "name": "ramprakash ram",
+                "village": "kapileshwar sthan",
+                "amount": 100
+            },
+            {
+                "srNo": 103,
+                "name": "mithilesh yadav",
+                "village": "jagat",
+                "amount": 151
+            },
+            {
+                "srNo": 104,
+                "name": "gopal mishra",
+                "village": "jagat",
+                "amount": 1101
+            },
+            {
+                "srNo": 105,
+                "name": "raghunath sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 106,
+                "name": "shankar yadav ",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 107,
+                "name": "siri kumar paswan ",
+                "village": "jagat",
+                "amount": 111
+            },
+            {
+                "srNo": 108,
+                "name": "barik",
+                "village": "sugauna",
+                "amount": 501
+            },
+            {
+                "srNo": 109,
+                "name": "pawan kumar mishra",
+                "village": "jagat",
+                "amount": 251
+            },
+            {
+                "srNo": 110,
+                "name": "pramod sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 111,
+                "name": "parameshwar yadav",
+                "village": "rampur",
+                "amount": 501
+            },
+            {
+                "srNo": 112,
+                "name": "banarasi sah",
+                "village": "kapileshwar sthan",
+                "amount": 121
+            },
+            {
+                "srNo": 113,
+                "name": "bechan pandit",
+                "village": "husainpur",
+                "amount": 501
+            },
+            {
+                "srNo": 114,
+                "name": "sanjay yadav",
+                "village": "jagat",
+                "amount": 251
+            },
+            {
+                "srNo": 115,
+                "name": "sivkumar yadav",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 116,
+                "name": "umesh sah",
+                "village": "fuhari",
+                "amount": 501
+            },
+            {
+                "srNo": 117,
+                "name": "indradev yadav",
+                "village": "kharaua",
+                "amount": 611
+            },
+            {
+                "srNo": 118,
+                "name": "vaidhanath thakur",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 119,
+                "name": "satyanarayan sah",
+                "village": "fuhari",
+                "amount": 255
+            },
+            {
+                "srNo": 120,
+                "name": "balram sah",
+                "village": "fuhari",
+                "amount": 251
+            },
+            {
+                "srNo": 121,
+                "name": "pramod panda",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 122,
+                "name": "ramwriksh prasad singh",
+                "village": "sugauna",
+                "amount": 201
+            },
+            {
+                "srNo": 123,
+                "name": "devnarayan sah",
+                "village": "kamalpur",
+                "amount": 221
+            },
+            {
+                "srNo": 124,
+                "name": "mahesh thakur",
+                "village": "kapileshwar sthan",
+                "amount": 105
+            },
+            {
+                "srNo": 125,
+                "name": "budhan yadav",
+                "village": "rampur",
+                "amount": 201
+            },
+            {
+                "srNo": 126,
+                "name": "baleshwar das",
+                "village": "kapileshwar sthan",
+                "amount": 102
+            },
+            {
+                "srNo": 127,
+                "name": "rambabu sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 128,
+                "name": "sambhu sah",
+                "village": "kapileshwar sthan",
+                "amount": 201
+            },
+            {
+                "srNo": 129,
+                "name": "baijnath sah",
+                "village": "kapileshwar sthan",
+                "amount": 111
+            },
+            {
+                "srNo": 130,
+                "name": "rajesh sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 131,
+                "name": "mohan sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 132,
+                "name": "sunil kumar singh",
+                "village": "kharaua",
+                "amount": 101
+            },
+            {
+                "srNo": 133,
+                "name": "dr. munindra prasad singh",
+                "village": "kharaua",
+                "amount": 501
+            },
+            {
+                "srNo": 134,
+                "name": "manoj yadav",
+                "village": "kharaua",
+                "amount": 501
+            },
+            {
+                "srNo": 135,
+                "name": "sivam kumar",
+                "village": "navatoli",
+                "amount": 151
+            },
+            {
+                "srNo": 136,
+                "name": "ramprasad sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 137,
+                "name": "pravin kumar",
+                "village": "navatoli",
+                "amount": 121
+            },
+            {
+                "srNo": 138,
+                "name": "surendra ray",
+                "village": "kharaua",
+                "amount": 151
+            },
+            {
+                "srNo": 139,
+                "name": "ramprasad (dudh wala)",
+                "village": "babhanagari",
+                "amount": 211
+            },
+            {
+                "srNo": 140,
+                "name": "kailash sah",
+                "village": "kapileshwar sthan",
+                "amount": 251
+            },
+            {
+                "srNo": 141,
+                "name": "bhogendra bhandari",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 142,
+                "name": "raj kumar yadav",
+                "village": "darahapura chauri",
+                "amount": 551
+            },
+            {
+                "srNo": 143,
+                "name": "lalbabu yadav",
+                "village": "kamalpur",
+                "amount": 2605
+            },
+            {
+                "srNo": 144,
+                "name": "ravindra kumar (teacher high school)",
+                "village": "kapileshwar sthan",
+                "amount": 501
+            },
+            {
+                "srNo": 145,
+                "name": "sahdev sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 146,
+                "name": "mahavir yadav",
+                "village": "rampur",
+                "amount": 101
+            },
+            {
+                "srNo": 147,
+                "name": "girish thakur",
+                "village": "kakaraul",
+                "amount": 151
+            },
+            {
+                "srNo": 148,
+                "name": "lakshmeshwer yadav",
+                "village": "kharaua",
+                "amount": 200
+            },
+            {
+                "srNo": 149,
+                "name": "vipin kumar sah ",
+                "village": "fuhari",
+                "amount": 251
+            },
+            {
+                "srNo": 150,
+                "name": "asesar yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 151,
+                "name": "bithawar wala (anil thakur)",
+                "village": "rampur",
+                "amount": 101
+            },
+            {
+                "srNo": 152,
+                "name": "javahar yadav",
+                "village": "jagat",
+                "amount": 511
+            },
+            {
+                "srNo": 153,
+                "name": "satrudhan yadav",
+                "village": "kharaua",
+                "amount": 401
+            },
+            {
+                "srNo": 154,
+                "name": "gudari jha panda",
+                "village": "kakaraul",
+                "amount": 101
+            },
+            {
+                "srNo": 155,
+                "name": "mohan sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 156,
+                "name": "mahendra sah (veer)",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 157,
+                "name": "surendra yadav",
+                "village": "rampur",
+                "amount": 151
+            },
+            {
+                "srNo": 158,
+                "name": "vijay yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 159,
+                "name": "baiju yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 160,
+                "name": "gupta ji",
+                "village": "kapileshwar sthan",
+                "amount": 211
+            },
+            {
+                "srNo": 161,
+                "name": "vijendra panda",
+                "village": "kakaraul",
+                "amount": 251
+            },
+            {
+                "srNo": 162,
+                "name": "sravan jha",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 163,
+                "name": "lakshmi yadav",
+                "village": "sohans",
+                "amount": 2011
+            },
+            {
+                "srNo": 164,
+                "name": "haridev paswan",
+                "village": "kakaraul",
+                "amount": 301
+            },
+            {
+                "srNo": 165,
+                "name": "narayan jha panda",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 166,
+                "name": "ramwriksh yadav",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 167,
+                "name": "ramvilash prasad",
+                "village": "kharaua",
+                "amount": 205
+            },
+            {
+                "srNo": 168,
+                "name": "jagadev prasad sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 169,
+                "name": "vishnudev prasad sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 170,
+                "name": "gaurishankar jha panda",
+                "village": "kakaraul",
+                "amount": 101
+            },
+            {
+                "srNo": 171,
+                "name": "krishanand jha panda",
+                "village": "kakaraul",
+                "amount": 101
+            },
+            {
+                "srNo": 172,
+                "name": "prabhu ji",
+                "village": "kakaraul",
+                "amount": 501
+            },
+            {
+                "srNo": 173,
+                "name": "lalan ji panda",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 174,
+                "name": "mithilesh kumar singh",
+                "village": "sugauna",
+                "amount": 151
+            },
+            {
+                "srNo": 175,
+                "name": "ajit paswan",
+                "village": "katarahi",
+                "amount": 251
+            },
+            {
+                "srNo": 176,
+                "name": "udaychandra yadav",
+                "village": "kamalpur",
+                "amount": 251
+            },
+            {
+                "srNo": 177,
+                "name": "shankar purve",
+                "village": "kapileshwar sthan",
+                "amount": 521
+            },
+            {
+                "srNo": 178,
+                "name": "narayan sah",
+                "village": "kapileshwar sthan",
+                "amount": 201
+            },
+            {
+                "srNo": 179,
+                "name": "kishori sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 180,
+                "name": "nathuni sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 181,
+                "name": "rajendra sah",
+                "village": "kapileshwar sthan",
+                "amount": 201
+            },
+            {
+                "srNo": 182,
+                "name": "rakesh kumar sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 183,
+                "name": "raghunath sah",
+                "village": "kapileshwar sthan",
+                "amount": 201
+            },
+            {
+                "srNo": 184,
+                "name": "dipak sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 185,
+                "name": "radheshyam yadav",
+                "village": "kharaua",
+                "amount": 551
+            },
+            {
+                "srNo": 186,
+                "name": "dilip sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 187,
+                "name": "mahadev jwelars",
+                "village": "kapileshwar sthan",
+                "amount": 201
+            },
+            {
+                "srNo": 188,
+                "name": "tilak sah ",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 189,
+                "name": "lalan yadav",
+                "village": "rampur",
+                "amount": 201
+            },
+            {
+                "srNo": 190,
+                "name": "arvind yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 191,
+                "name": "sanjiv yadav",
+                "village": "kharaua",
+                "amount": 251
+            },
+            {
+                "srNo": 192,
+                "name": "abhaynath yadav",
+                "village": "kharaua",
+                "amount": 150
+            },
+            {
+                "srNo": 193,
+                "name": "guddu jwelars",
+                "village": "kapileshwar sthan",
+                "amount": 201
+            },
+            {
+                "srNo": 194,
+                "name": "amar das",
+                "village": "sitamadhi",
+                "amount": 101
+            },
+            {
+                "srNo": 195,
+                "name": "shankar sah (ward no.)",
+                "village": "kapileshwar sthan",
+                "amount": 105
+            },
+            {
+                "srNo": 196,
+                "name": "rajesh sah (gril ducan)",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 197,
+                "name": "bharat sah",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 198,
+                "name": "lalit yadav",
+                "village": "sugauna",
+                "amount": 551
+            },
+            {
+                "srNo": 199,
+                "name": "jaynarayan thakur",
+                "village": "kapileshwar sthan",
+                "amount": 125
+            },
+            {
+                "srNo": 200,
+                "name": "sanjay kumar ray",
+                "village": "kharaua",
+                "amount": 151
+            },
+            {
+                "srNo": 201,
+                "name": "suresh das",
+                "village": "sitamadhi",
+                "amount": 111
+            },
+            {
+                "srNo": 202,
+                "name": "lalit bhagat",
+                "village": "sonamani",
+                "amount": 251
+            },
+            {
+                "srNo": 203,
+                "name": "dinesh das",
+                "village": "chhajava sataghara",
+                "amount": 111
+            },
+            {
+                "srNo": 204,
+                "name": "madhu rai",
+                "village": "rahika",
+                "amount": 201
+            },
+            {
+                "srNo": 205,
+                "name": "lal bihari yadav",
+                "village": "jagat",
+                "amount": 501
+            },
+            {
+                "srNo": 206,
+                "name": "gulab yadav",
+                "village": "kharaua",
+                "amount": 105
+            },
+            {
+                "srNo": 207,
+                "name": "santosh jha",
+                "village": "kakaraul",
+                "amount": 101
+            },
+            {
+                "srNo": 208,
+                "name": "santosh jha",
+                "village": "kakaraul",
+                "amount": 101
+            },
+            {
+                "srNo": 209,
+                "name": "pradip sah ",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 210,
+                "name": "santosh das",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 211,
+                "name": "rameshwar das",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 212,
+                "name": "suraj das",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 213,
+                "name": "shankar das",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 214,
+                "name": "vinod das",
+                "village": "kapileshwar sthan",
+                "amount": 151
+            },
+            {
+                "srNo": 215,
+                "name": "bhajavat yadav",
+                "village": "jagat",
+                "amount": 105
+            },
+            {
+                "srNo": 216,
+                "name": "nathuni sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 217,
+                "name": "chaman mishra",
+                "village": "kakaraul",
+                "amount": 101
+            },
+            {
+                "srNo": 218,
+                "name": "md. Wakil",
+                "village": "rampur",
+                "amount": 251
+            },
+            {
+                "srNo": 219,
+                "name": "rajkumar sah",
+                "village": "kapileshwar sthan",
+                "amount": 202
+            },
+            {
+                "srNo": 220,
+                "name": "kailash prasad (bijali)",
+                "village": "sugauna",
+                "amount": 251
+            },
+            {
+                "srNo": 221,
+                "name": "hira jha (master)",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 222,
+                "name": "chhotu (bulet gairej)",
+                "village": "rahika",
+                "amount": 501
+            },
+            {
+                "srNo": 223,
+                "name": "ramvilash yadav(sarpanch)",
+                "village": "jagat",
+                "amount": 551
+            },
+            {
+                "srNo": 224,
+                "name": "bhogendra yadav (chapaua)",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 225,
+                "name": "baua mandal",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 226,
+                "name": "ganesh yadav",
+                "village": "babhanagari",
+                "amount": 121
+            },
+            {
+                "srNo": 227,
+                "name": "arjun sadai",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 228,
+                "name": "brahamanand jha",
+                "village": "babhanagari",
+                "amount": 555
+            },
+            {
+                "srNo": 229,
+                "name": "shankar yadav ",
+                "village": "nayagano",
+                "amount": 1251
+            },
+            {
+                "srNo": 230,
+                "name": "ramnarayan mandal",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 231,
+                "name": "ramchandra yadav",
+                "village": "babhanagari",
+                "amount": 121
+            },
+            {
+                "srNo": 232,
+                "name": "ravindra jha",
+                "village": "kakaraul",
+                "amount": 501
+            },
+            {
+                "srNo": 233,
+                "name": "hitendra yadav",
+                "village": "bailauja",
+                "amount": 301
+            },
+            {
+                "srNo": 234,
+                "name": "vijay mishra",
+                "village": "kakaraul",
+                "amount": 500
+            },
+            {
+                "srNo": 235,
+                "name": "sravan thakur",
+                "village": "rahika",
+                "amount": 200
+            },
+            {
+                "srNo": 236,
+                "name": "mithilesh jha",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 237,
+                "name": "damaru jha panda",
+                "village": "babhanagari",
+                "amount": 205
+            },
+            {
+                "srNo": 238,
+                "name": "pappu jha panda",
+                "village": "babhanagari",
+                "amount": 500
+            },
+            {
+                "srNo": 239,
+                "name": "rajesh sah(mithai dukan)",
+                "village": "kapileshwar sthan",
+                "amount": 251
+            },
+            {
+                "srNo": 240,
+                "name": "babulal thakur",
+                "village": "jagat",
+                "amount": 251
+            },
+            {
+                "srNo": 241,
+                "name": "anil sah(kirana dukan)",
+                "village": "kapileshwar sthan",
+                "amount": 251
+            },
+            {
+                "srNo": 242,
+                "name": "govind mandal (pramukh)",
+                "village": "lakshmipur",
+                "amount": 510
+            },
+            {
+                "srNo": 243,
+                "name": "shri ram yadav",
+                "village": "rahika",
+                "amount": 500
+            },
+            {
+                "srNo": 244,
+                "name": "babunath jha panda",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 245,
+                "name": "mitranath jha panda",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 246,
+                "name": "arvind kumar yadav(rogaha)",
+                "village": "babhanagari",
+                "amount": 551
+            },
+            {
+                "srNo": 247,
+                "name": "nagendra jha",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 248,
+                "name": "shardanand jha",
+                "village": "babhanagari",
+                "amount": 100
+            },
+            {
+                "srNo": 249,
+                "name": "sadhusaran yadav",
+                "village": "babhanagari",
+                "amount": 310
+            },
+            {
+                "srNo": 250,
+                "name": "ramsogarath yadav",
+                "village": "babhanagari",
+                "amount": 201
+            },
+            {
+                "srNo": 251,
+                "name": "ravindra yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 252,
+                "name": "vishvanath jha",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 253,
+                "name": "sanjay kumar ray",
+                "village": "kakaraul",
+                "amount": 251
+            },
+            {
+                "srNo": 254,
+                "name": "kamalesh yadav(pan sarkar)",
+                "village": "khangaraitha",
+                "amount": 5005
+            },
+            {
+                "srNo": 255,
+                "name": "ramesh ranjan",
+                "village": "sugauna",
+                "amount": 151
+            },
+            {
+                "srNo": 256,
+                "name": "kewal sah",
+                "village": "kapileshwar sthan",
+                "amount": 101
+            },
+            {
+                "srNo": 257,
+                "name": "ambodh jha panda",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 258,
+                "name": "anand kumar (hostal)",
+                "village": "nalanda",
+                "amount": 100
+            },
+            {
+                "srNo": 259,
+                "name": "prince kumar (hostal)",
+                "village": "gaya",
+                "amount": 100
+            },
+            {
+                "srNo": 260,
+                "name": "swarge arun jha (kakraul wali)",
+                "village": "",
+                "amount": 101
+            },
+            {
+                "srNo": 261,
+                "name": "ramprakash yadav",
+                "village": "paradih",
+                "amount": 1511
+            },
+            {
+                "srNo": 262,
+                "name": "ramsevak yadav (siraha)",
+                "village": "babhanagari",
+                "amount": 311
+            },
+            {
+                "srNo": 263,
+                "name": "kasinath panda",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 264,
+                "name": "devnandan yadav",
+                "village": "babhanagari",
+                "amount": 151
+            },
+            {
+                "srNo": 265,
+                "name": "ganganand panda",
+                "village": "kakaraul",
+                "amount": 251
+            },
+            {
+                "srNo": 266,
+                "name": "anand yadav (bambam)",
+                "village": "babhanagari",
+                "amount": 1100
+            },
+            {
+                "srNo": 267,
+                "name": "subodh yadav",
+                "village": "muratujapur",
+                "amount": 2101
+            },
+            {
+                "srNo": 268,
+                "name": "subodh yadav",
+                "village": "sohans",
+                "amount": 1000
+            },
+            {
+                "srNo": 269,
+                "name": "dr. hemchandra jha",
+                "village": "kakaraul",
+                "amount": 501
+            },
+            {
+                "srNo": 270,
+                "name": "mahendra yadav",
+                "village": "babhanagari",
+                "amount": 501
+            },
+            {
+                "srNo": 271,
+                "name": "ramprakash yadav (pagala)",
+                "village": "babhanagari",
+                "amount": 251
+            },
+            {
+                "srNo": 272,
+                "name": "umesh yadav",
+                "village": "nurchak",
+                "amount": 2501
+            },
+            {
+                "srNo": 273,
+                "name": "mahesh yadav",
+                "village": "nurchak",
+                "amount": 2502
+            },
+            {
+                "srNo": 274,
+                "name": "indal yadav",
+                "village": "pingi",
+                "amount": 1550
+            },
+            {
+                "srNo": 275,
+                "name": "mahabir yadav",
+                "village": "babhanagari",
+                "amount": 2050
+            },
+            {
+                "srNo": 276,
+                "name": "lalbabu yadav",
+                "village": "babhanagari",
+                "amount": 252
+            },
+            {
+                "srNo": 277,
+                "name": "kamaldev yadav",
+                "village": "kharaua",
+                "amount": 500
+            },
+            {
+                "srNo": 278,
+                "name": "pappu yadav",
+                "village": "nahasa",
+                "amount": 501
+            },
+            {
+                "srNo": 279,
+                "name": "siyasaran yadav",
+                "village": "babhanagari",
+                "amount": 101
+            },
+            {
+                "srNo": 280,
+                "name": "rambharosh ray ",
+                "village": "kharaua",
+                "amount": 701
+            }
+        ];
+
+        let currentDataset = dataset1;
+        let datasetTitle = document.getElementById("datasetTitle");
+
+        function loadTable() {
+            let tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+            currentDataset.forEach((item) => {
+                let row = `<tr>
+                    <td>${item.srNo}</td>
+                    <td>${item.name}</td>
+                    <td>${item.village}</td>
+                    <td>${item.amount}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function filterTable() {
+            let input = document.getElementById("searchInput");
+            let filter = input.value.toLowerCase();
+            let rows = document.querySelectorAll("#tableBody tr");
+            rows.forEach(row => {
+                let text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? "" : "none";
+            });
+        }
+
+        function sortTable(columnIndex) {
+            let table = document.querySelector("table tbody");
+            let rows = Array.from(table.rows);
+            let ascending = table.dataset.sortOrder !== "asc";
+            rows.sort((a, b) => {
+                let cellA = a.cells[columnIndex].textContent;
+                let cellB = b.cells[columnIndex].textContent;
+                return ascending ? cellA.localeCompare(cellB, undefined, { numeric: true }) : cellB.localeCompare(cellA, undefined, { numeric: true });
+            });
+            table.dataset.sortOrder = ascending ? "asc" : "desc";
+            rows.forEach(row => table.appendChild(row));
+        }
+
+        function toggleDataset() {
+            currentDataset = currentDataset === dataset1 ? dataset2 : dataset1;
+            datasetTitle.textContent = currentDataset === dataset1 ? "Marriage Data" : "Saradh Data";
+            loadTable();
+        }
+
+        document.addEventListener("DOMContentLoaded", loadTable);
+    </script>
+</body>
+
+</html>

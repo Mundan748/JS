@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        nav{
+            background-color: aquamarine;
+            height: 50px;
+        }
+        nav span{
+            display: inline-block;
+            position: relative;
+            text-align: center;
+            line-height: 50px;
+        }
+        #heading_list{
+            padding: 20px;
+            border-radius: 20px;
+        }
+        nav ul{
+            width: 94%;
+            list-style-type: none;
+            display: inline-flex;
+            box-sizing: border-box;
+        }
+        nav li{
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            text-transform: uppercase;
+        }
+        a:hover,#heading_list:hover{
+            background-color: antiquewhite;
+        }
+        #tool_box{
+            width: 200px;
+            height: auto;
+            border: 3px solid rgb(190, 190, 172);
+            border-radius: 10px;
+            position: fixed;
+            padding: 10px;
+            top: 50px;
+            right: 10px;
+            box-sizing: border-box;
+        }
+        #tool_box>section{
+            height: 200px;
+            overflow-y: scroll;
+            margin-block-end: 20px;
+        }
+        #tool_box button{
+            width: 100%;
+            height: 40px;
+            border: none;
+            font-size: 16px;
+            background-color: rgb(75, 75, 243);
+            color: white;
+        }
+        #tool_box input{
+            height: 20px;
+            width: 20px;
+            margin: 10px;
+        }
+        #myBtn{
+            margin-block: 30px;
+        }
+        #tool_box label{
+            font-size: 24px;
+            text-transform: capitalize;
+        }
+        
+    </style>
+</head>
+<body>
+    <nav>
+        <ul></ul>
+        <span>
+            <i class="fa-solid fa-list-check fa-xl" id="heading_list"></i>
+        </span>
+    </nav>
+    <div id="tool_box" style="display: none;">
+        <section>
+            <div></div>
+            <div>
+                <button type="button" id="myBtn">Add <i class="fa-solid fa-circle-plus fa-xl"></i></button>
+            </div>
+        </section>
+        <button type="button" id="applyBtn">Apply Changes</button>
+    </div>
+
+    <script>
+        var headingList=["home","about","contact","service","gallary","blogs"];
+        function updateHeadingList(){
+            var newHeadingList= headingList.map((d)=>{
+                    return `<input type="checkbox" id="${d}">
+                            <label>${d}</label><br>`;
+                });
+            document.querySelector("#tool_box>section>div:first-child").innerHTML=newHeadingList.join("");
+        }
+        updateHeadingList();
+
+        document.getElementById("myBtn").addEventListener("click",()=>{
+            var newHeading=prompt("NAME OF NEW HEADING");
+            if(newHeading!=""){
+                headingList.push(newHeading);
+                updateHeadingList();
+            }
+        });
+
+        document.getElementById("heading_list").addEventListener("click",()=>{
+                var toolBox=document.getElementById("tool_box");
+                if(toolBox.style.display == "none")
+                    toolBox.style.display="block";
+                else
+                    toolBox.style.display = "none";
+            });
+        
+        document.getElementById("applyBtn").addEventListener("click",()=>{
+            var unchecked=0;
+            var currentHeadingList=headingList.map((d)=>{
+                    if(document.getElementById(`${d}`).checked)
+                        return `${d}`;
+                    else{
+                        unchecked++;
+                        return "";
+                    }
+                });
+            console.log(currentHeadingList);
+            currentHeadingList.sort();
+            currentHeadingList.splice(0,unchecked);
+            console.log(currentHeadingList);
+            var finalNav = currentHeadingList.map((d)=>{
+                return `<li><a href="#">${d}</a></li>`;
+            });
+            document.querySelector("ul").innerHTML=finalNav.join("");
+        });
+
+    </script>
+
+<!-- headingList.map((d)=>{
+    if(document.getElementById(`${d}`).checked==false)
+        currentHeadingList.pop(`${d}`);
+}); -->
+</body>
+</html>

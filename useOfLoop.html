@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #product_box{
+            width: 90%;
+            height: auto;
+            border: 5px solid gray;
+        }
+        #product_box>section:first-child{
+            text-align: center;
+            padding: 10px;
+        }
+        #product_box input{
+            width: 200px;
+            height: 40px;
+            margin: 5px 20px;
+            padding: 5px 15px;
+            font-size: 18px;
+            background-color:rgb(234, 234, 143);
+            border: none;
+            border-radius: 10px;
+        }
+        #product_box input[type="button"]{
+            background-color: rgb(128, 128, 247);
+            color: white;
+        }
+        #product_box input:last-child{
+            border: 2px solid rgb(158, 158, 96) ;
+            background-color: white;
+            width: 90%;
+            border-radius: 20px;
+        }
+        #product_box input:last-child:focus {
+            outline: none;
+        }
+        #product_box>section:last-child{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 13px;
+        }
+        #product_box>section:last-child div{
+            width: 100px;
+            height: 100px;
+            border: 1px solid gray;
+            text-align: center;
+            line-height: 100px;
+            font-size: 40px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="product_box">
+        <section>
+            <input type="text" placeholder="startFrom">
+            <input type="text" placeholder="endTo">
+            <input type="button" value="Run" onclick="storeSample()"><br>
+            <input type="text" placeholder="Search" oninput="filterProduct()">
+        </section>
+        <section></section>
+    </div>
+
+    <script>
+        var myEleList=[];
+
+        function storeSample(){
+            var a,b,inputs;
+            inputs=document.querySelectorAll("input:first-child,input:nth-child(2)");
+            a=Number(inputs[0].value);
+            b=Number(inputs[1].value);
+            for(a;a<=b;a++){
+                myEleList.push(a);
+            }
+            console.log(myEleList);
+            displayProduct(myEleList);
+        }
+
+        function filterProduct(){
+            var inp=document.querySelector("input:last-child").value;
+            if(inp>0){
+                var temp=myEleList.filter((d)=>{
+                    return d>=inp;
+                });
+                displayProduct(temp);
+            }
+            else{
+                displayProduct(myEleList);
+            }
+        }
+
+        function displayProduct(arr){
+            var temp=arr.map((d)=>{
+                return `<div>${d}</div>`;
+            });
+            document.querySelector("#product_box>section:last-child").innerHTML=temp.join("");
+        }
+    </script>
+</body>
+</html>
